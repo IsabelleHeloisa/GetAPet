@@ -1,10 +1,11 @@
 import Input from '../../form/Input'
-
+import Styles from '../../form/Form.module.css'
+import { Link } from 'react-router-dom'
 function Register() {
   function handleOnChange(e) {}
 
   return (
-    <section>
+    <section className={Styles.form_container}>
       <h1>Register</h1>
       <form>
         <Input
@@ -44,6 +45,9 @@ function Register() {
         />
         <input type="submit" value="Cadastrar" />
       </form>
+      <p>
+        Já tem conta? <Link to="/login">Clique aqui.</Link>
+      </p>
     </section>
   )
 }
