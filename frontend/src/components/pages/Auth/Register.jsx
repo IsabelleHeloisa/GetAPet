@@ -1,19 +1,23 @@
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 
 import Input from '../../form/Input'
 import Styles from '../../form/Form.module.css'
 import { Link } from 'react-router-dom'
 
+import { Context } from '../../../context/UserContext'
+
 function Register() {
   const [user, setUser] = useState({})
+  const { register } = useContext(Context)
 
   function handleOnChange(e) {
     setUser({ ...user, [e.target.name]: e.target.value })
   }
 
-  function handleSubmit(e) {
-    e.preventDeufault()
+  async function handleSubmit(e) {
+    e.preventDefault()
     // enviar o usuario para o banco
+    await register(user)
   }
 
   return (
@@ -29,8 +33,8 @@ function Register() {
         />
         <Input
           text="Telefone"
-          type="text"
-          name="name"
+          type="tel"
+          name="phone"
           placeholder="Digite o seu telefone"
           handleOnChange={handleOnChange}
         />
