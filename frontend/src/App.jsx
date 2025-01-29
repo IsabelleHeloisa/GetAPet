@@ -9,6 +9,7 @@ import Login from './components/pages/Auth/Login.jsx'
 import Register from './components/pages/Auth/Register.jsx'
 import Home from './components/pages/Home.jsx'
 import Container from './components/layout/Container'
+import Message from './components/layout/Message.jsx'
 
 import { UserProvider } from './context/UserContext.jsx'
 
@@ -17,6 +18,7 @@ function App() {
     <Router>
       <UserProvider>
         <Navbar />
+        <Message />
         <Container>
           <Routes>
             <Route path="/login" element={<Login />} />
