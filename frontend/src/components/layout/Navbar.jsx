@@ -5,7 +5,7 @@ import { useContext } from 'react'
 import { Context } from '../../context/UserContext'
 
 function Navbar() {
-  const { authenticated } = useContext(Context)
+  const { authenticated, logout } = useContext(Context)
   return (
     <nav className={styles.navbar}>
       <div className={styles.navbar_logo}>
@@ -18,7 +18,7 @@ function Navbar() {
         </li>
         {authenticated ? (
           <>
-            <p>Logado</p>
+            <li onClick={logout}>Sair</li>
           </>
         ) : (
           <>
