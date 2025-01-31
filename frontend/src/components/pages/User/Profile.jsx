@@ -8,6 +8,7 @@ import formStyles from '../../form/Form.module.css'
 import Input from '../../form/Input'
 
 import useFlashMessage from '../../../hooks/useFlashMessage'
+import RoudedImage from '../../layout/RoudedImage'
 
 function Profile() {
   const [user, setUser] = useState({})
@@ -68,7 +69,7 @@ function Profile() {
       <div className={styles.profile_header}>
         <h1>Perfil</h1>
         {(user.image || preview) && (
-          <img
+          <RoudedImage
             src={
               preview
                 ? URL.createObjectURL(preview)
