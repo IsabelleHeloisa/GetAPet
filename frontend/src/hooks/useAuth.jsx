@@ -13,7 +13,7 @@ export default function useAuth() {
     const token = localStorage.getItem('token')
 
     if (token) {
-      api.defaults.headers.authorization = `Bearer ${JSON.parse(token)}`
+      api.defaults.headers.authorization = `Bearer ${token}`
       setAuthenticated(true)
     }
   }, [])
