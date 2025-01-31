@@ -7,9 +7,12 @@ import formStyles from '../../form/Form.module.css'
 
 import Input from '../../form/Input'
 
+import useFlashMessage from '../../../hooks/useFlashMessage'
+
 function Profile() {
   const [user, setUser] = useState({})
   const [token] = useState(localStorage.getItem('token') || '')
+  const { setFlashMessage } = useFlashMessage()
 
   useEffect(() => {
     api
@@ -23,16 +26,48 @@ function Profile() {
       })
   }, [token])
 
-  function onFileChange(e) {}
+  function onFileChange(e) {
+    setUser({ ...user, [e.target.name]: e.target.files[0] })
+  }
 
-  function handleChange(e) {}
+  function handleChange(e) {
+    setUser({ ...user, [e.target.name]: e.target.value })
+  }
+
+  async function handleSubmit(e) {
+    e.preventDefault()
+
+    let msgType = 'success'
+
+    const formData = new FormData()
+
+    await Object.keys(user).forEach(key => formData.append(key, user[key]))
+
+    const data = await api
+      .patch(`/users/edit/${user._id}`, formData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'multipart/form-data'
+        }
+      })
+      .then(response => {
+        return response.data
+      })
+      .catch(err => {
+        msgType = 'error'
+        return err.response.data
+      })
+
+    setFlashMessage(data.message, msgType)
+  }
+
   return (
     <section>
       <div className={styles.profile_header}>
         <h1>Perfil</h1>
         <p>Preview de imagem</p>
       </div>
-      <form className={formStyles.form_container}>
+      <form onSubmit={handleSubmit} className={formStyles.form_container}>
         <Input
           text="Imagem"
           type="file"
