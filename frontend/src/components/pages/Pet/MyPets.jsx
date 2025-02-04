@@ -11,7 +11,7 @@ function MyPets() {
       </div>
       <div>
         {pets.length > 0 && <p>Meus pets cadastrados</p>}
-        {pets.length === 0 && <p>Nãp há pets cadstrados</p>}
+        {pets.length === 0 && <p>Não há pets cadstrados</p>}
       </div>
     </section>
   )

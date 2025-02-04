@@ -44,7 +44,7 @@ function Profile() {
 
     const formData = new FormData()
 
-    await Object.keys(user).forEach(key => formData.append(key, user[key]))
+    Object.keys(user).forEach(key => formData.append(key, user[key]))
 
     const data = await api
       .patch(`/users/edit/${user._id}`, formData, {
@@ -69,14 +69,16 @@ function Profile() {
       <div className={styles.profile_header}>
         <h1>Perfil</h1>
         {(user.image || preview) && (
-          <RoudedImage
-            src={
-              preview
-                ? URL.createObjectURL(preview)
-                : `${process.env.REACT_APP_API}/images/users/${user.image}`
-            }
-            alt={user.name}
-          />
+          <label htmlFor="image">
+            <RoudedImage
+              src={
+                preview
+                  ? URL.createObjectURL(preview)
+                  : `${process.env.REACT_APP_API}/images/users/${user.image}`
+              }
+              alt={user.name}
+            />
+          </label>
         )}
       </div>
       <form onSubmit={handleSubmit} className={formStyles.form_container}>
@@ -84,6 +86,9 @@ function Profile() {
           text="Imagem"
           type="file"
           name="image"
+          style={{
+            display: 'none'
+          }}
           handleOnChange={onFileChange}
         />
         <Input

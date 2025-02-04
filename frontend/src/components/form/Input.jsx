@@ -7,7 +7,8 @@ function Input({
   placeholder,
   handleOnChange,
   value,
-  multiple
+  multiple,
+  ...rest
 }) {
   return (
     <div className={styles.form_control}>
@@ -20,6 +21,7 @@ function Input({
         onChange={handleOnChange}
         value={value}
         {...(multiple ? { multiple } : '')}
+        {...rest}
       />
     </div>
   )
