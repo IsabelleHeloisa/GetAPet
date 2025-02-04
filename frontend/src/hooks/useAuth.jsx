@@ -3,6 +3,7 @@ import api from '../utils/api'
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import useFlashMessage from './useFlashMessage'
+import { toast } from 'react-toastify'
 
 export default function useAuth() {
   const [authenticated, setAuthenticated] = useState(false)
@@ -27,12 +28,11 @@ export default function useAuth() {
         return response.data
       })
       await authUser(data)
+      toast.success(msgText)
     } catch (error) {
       msgText = error.response.data.message
-      msgType = 'error'
+      toast.error(msgText)
     }
-
-    setFlashMessage(msgText, msgType)
   }
 
   async function login(user) {
@@ -44,11 +44,11 @@ export default function useAuth() {
         return response.data
       })
       await authUser(data)
+      toast.success(msgText)
     } catch (error) {
       msgText = error.response.data.message
-      msgType = 'error'
+      toast.error(msgText)
     }
-    setFlashMessage(msgText, msgType)
   }
 
   async function authUser(data) {
@@ -61,14 +61,12 @@ export default function useAuth() {
 
   function logout() {
     const msgText = 'Logout realizado com sucesso!'
-    const msgType = 'success'
 
     setAuthenticated(false)
     localStorage.removeItem('token')
     api.defaults.headers.Authorization = undefined
     navigate('/')
-
-    setFlashMessage(msgText, msgType)
+    toast.success(msgText)
   }
 
   return { authenticated, register, logout, login }

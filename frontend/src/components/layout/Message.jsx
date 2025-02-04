@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import bus from '../../utils/bus'
 import styles from './Message.module.css'
+import { ToastContainer, toast } from 'react-toastify'
 
 function Message() {
   const [visibility, setVisibility] = useState(false)

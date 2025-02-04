@@ -9,6 +9,7 @@ import Input from '../../form/Input'
 
 import useFlashMessage from '../../../hooks/useFlashMessage'
 import RoudedImage from '../../layout/RoudedImage'
+import { toast } from 'react-toastify'
 
 function Profile() {
   const [user, setUser] = useState({})
@@ -61,7 +62,11 @@ function Profile() {
         return err.response.data
       })
 
-    setFlashMessage(data.message, msgType)
+    if (msgType === 'success') {
+      toast.success(data.message)
+    } else {
+      toast.error(data.message)
+    }
   }
 
   return (
