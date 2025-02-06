@@ -1,7 +1,22 @@
+import api from '../../../utils/api'
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import RoudedImage from '../../layout/RoudedImage'
 function MyPets() {
   const [pets, setPets] = useState([])
+  const [token] = useState(localStorage.getItem('token') || '')
+
+  useEffect(() => {
+    api
+      .get('/pets/mypets', {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+      .then(response => {
+        setPets(response.data.pets)
+      })
+  }, [token])
 
   return (
     <section>
