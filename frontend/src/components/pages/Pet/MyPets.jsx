@@ -3,6 +3,7 @@ import styles from './Dashboard.module.css'
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import RoudedImage from '../../layout/RoudedImage'
+import { toast } from 'react-toastify'
 function MyPets() {
   const [pets, setPets] = useState([])
   const [token] = useState(localStorage.getItem('token') || '')
@@ -18,6 +19,31 @@ function MyPets() {
         setPets(response.data.pets)
       })
   }, [token])
+
+  async function removePet(id) {
+    let msgType = 'success'
+    const data = await api
+      .delete(`/pets/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+      .then(response => {
+        const updatedPets = pets.filter(pet => pet._id != id)
+        setPets(updatedPets)
+        return response.data
+      })
+      .catch(err => {
+        msgType = 'error'
+        return err.response.data
+      })
+
+    if (msgType === 'success') {
+      toast.success(data.message)
+    } else {
+      toast.error(data.message)
+    }
+  }
 
   return (
     <section>
@@ -44,7 +70,13 @@ function MyPets() {
                       </button>
                     )}
                     <Link to={`/pet/edit/${pet._id}`}>Editar</Link>
-                    <button>Excluir</button>
+                    <button
+                      onClick={() => {
+                        removePet(pet._id)
+                      }}
+                    >
+                      Excluir
+                    </button>
                   </>
                 ) : (
                   <p>Pet já adotado</p>
