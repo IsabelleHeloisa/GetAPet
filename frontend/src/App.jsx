@@ -16,6 +16,7 @@ import { UserProvider } from './context/UserContext.jsx'
 import MyPets from './components/pages/Pet/MyPets.jsx'
 import AddPet from './components/pages/Pet/AddPet.jsx'
 import { Bounce, ToastContainer } from 'react-toastify'
+import EditPet from './components/pages/Pet/EditPet.jsx'
 
 function App() {
   return (
@@ -43,6 +44,7 @@ function App() {
             <Route path="/user/profile" element={<Profile />} />
             <Route path="/pet/mypets" element={<MyPets />} />
             <Route path="/pet/add" element={<AddPet />} />
+            <Route path="/pet/edit/:id" element={<EditPet />} />
             <Route path="/" element={<Home />} />
           </Routes>
         </Container>
