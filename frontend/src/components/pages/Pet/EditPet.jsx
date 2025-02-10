@@ -7,6 +7,7 @@ import styles from './AddPet.module.css'
 import PetForm from '../../form/PetForm'
 
 import { useNavigate, useParams } from 'react-router-dom'
+import { toast } from 'react-toastify'
 
 function EditPet() {
   const [pet, setPet] = useState({})
@@ -24,7 +25,42 @@ function EditPet() {
       })
   }, [token, id])
 
-  async function updatePet(pet) {}
+  async function updatePet(pet) {
+    let msgType = 'success'
+
+    const formData = new FormData()
+
+    await Object.keys(pet).forEach(key => {
+      if (key === 'images') {
+        for (let i = 0; i < pet[key].length; i++) {
+          formData.append('images', pet[key][i])
+        }
+      } else {
+        formData.append(key, pet[key])
+      }
+    })
+
+    const data = await api
+      .patch(`pets/${pet._id}`, formData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'multipart/form-data'
+        }
+      })
+      .then(response => {
+        return response.data
+      })
+      .catch(err => {
+        msgType = 'error'
+        return err.response.data
+      })
+
+    if (msgType === 'success') {
+      toast.success(data.message)
+    } else {
+      toast.error(data.message)
+    }
+  }
 
   return (
     <section>
