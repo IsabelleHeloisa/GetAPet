@@ -271,7 +271,7 @@ module.exports = class PetController {
     await Pet.findByIdAndUpdate(id, pet)
 
     res.status(200).json({
-      message: `A visita foi agendada com sucesso, entre em contato comm ${pet.user.name} pelo telefone ${pet.user.phone}`
+      message: `A visita foi agendada com sucesso, entre em contato com ${pet.user.name} pelo telefone ${pet.user.phone}`
     })
     return
   }
