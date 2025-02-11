@@ -45,6 +45,34 @@ function MyPets() {
     }
   }
 
+  async function concludeAdoption(id) {
+    let msgType = 'success'
+
+    const data = await api
+      .patch(
+        `/pets/conclude/${id}`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        }
+      )
+      .then(response => {
+        return response.data
+      })
+      .catch(err => {
+        msgType = 'error'
+        return err.response.data
+      })
+
+    if (msgType === 'success') {
+      toast.success(data.message)
+    } else {
+      toast.error(data.message)
+    }
+  }
+
   return (
     <section>
       <div className={styles.petlist_header}>
@@ -65,7 +93,12 @@ function MyPets() {
                 {pet.available ? (
                   <>
                     {pet.adopter && (
-                      <button className={styles.conclude_btn}>
+                      <button
+                        className={styles.conclude_btn}
+                        onClick={() => {
+                          concludeAdoption(pet._id)
+                        }}
+                      >
                         Concluir adoção
                       </button>
                     )}
