@@ -18,6 +18,7 @@ import AddPet from './components/pages/Pet/AddPet.jsx'
 import { Bounce, ToastContainer } from 'react-toastify'
 import EditPet from './components/pages/Pet/EditPet.jsx'
 import PetDetails from './components/pages/Pet/PetDetails.jsx'
+import MyAdoptions from './components/pages/Pet/MyAdoptions.jsx'
 
 function App() {
   return (
@@ -46,6 +47,7 @@ function App() {
             <Route path="/pet/mypets" element={<MyPets />} />
             <Route path="/pet/add" element={<AddPet />} />
             <Route path="/pet/edit/:id" element={<EditPet />} />
+            <Route path="/pet/myadoptions" element={<MyAdoptions />} />
             <Route path="/pet/:id" element={<PetDetails />} />
 
             <Route path="/" element={<Home />} />

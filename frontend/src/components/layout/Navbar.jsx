@@ -19,6 +19,9 @@ function Navbar() {
         {authenticated ? (
           <>
             <li>
+              <Link to="/pet/myadoptions">Minhas Adoções</Link>
+            </li>
+            <li>
               <Link to="/pet/mypets">Meus pets</Link>
             </li>
             <li>
@@ -29,7 +32,7 @@ function Navbar() {
         ) : (
           <>
             <li>
-              <Link to="/login">Entar</Link>
+              <Link to="/login">Entrar</Link>
             </li>
             <li>
               <Link to="/register">Cadastrar</Link>
